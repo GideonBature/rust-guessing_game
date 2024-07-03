@@ -4,7 +4,7 @@ use std::cmp::Ordering;
 
 fn main() {
 
-    let rand_num = rand::thread_rng().gen_range(1..=100);
+    let rand_num = generate_random();
 
     println!("Welcome to The Number Guessing Game\n");
 
@@ -14,9 +14,7 @@ fn main() {
 
         let mut guess = String::new();
 
-        io::stdin()
-            .read_line(&mut guess)
-            .expect("Failed to read line");
+        get_user_input(&mut guess);
 
         let guess: u32 = match guess.trim().parse() {
             Ok(num) => num,
@@ -32,4 +30,16 @@ fn main() {
             }
         }
     }
+}
+
+fn generate_random() -> u32 {
+    let rand_num = rand::thread_rng().gen_range(1..=100);
+    rand_num
+}
+
+fn get_user_input(guess: &mut String) -> &mut String {
+    io::stdin()
+        .read_line(guess)
+        .expect("Failed to read line");
+    guess
 }
